@@ -32,6 +32,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	height: 100vh;
 	line-height: 1;
+	box-sizing: border-box;
 }
 ol, ul {
 	list-style: none;

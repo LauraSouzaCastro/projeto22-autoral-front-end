@@ -1,8 +1,9 @@
 import useAsync from '../useAsync';
 
 import * as authApi from '../../services/authApi';
+import useToken from '../useToken';
 
-export default function useSignIn() {
+export function useSignIn() {
   const {
     loading: signInLoading,
     error: signInError,
@@ -15,3 +16,21 @@ export default function useSignIn() {
     signIn
   };
 }
+
+
+export function useSessions() {
+  const {
+    data: sessions,
+    loading: sessionsLoading,
+    error: sessionsError,
+    act: listSessions,
+  } = useAsync((token) => authApi.getSessions(token));
+
+  return {
+    sessions,
+    sessionsLoading,
+    sessionsError,
+    listSessions,
+  };
+};
+
