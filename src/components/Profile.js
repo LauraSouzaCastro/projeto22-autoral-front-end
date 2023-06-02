@@ -1,11 +1,12 @@
 import { Page, Form, Container, StyleLink, StyleTbCameraPlus, InputNone, Titulo } from "@/styles/styledComponents";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from 'next/navigation';
-import useProfile from '@/hooks/api/useProfile';
+import { useProfileImage, useProfileName } from '@/hooks/api/useProfile';
 import { UserContext } from "@/contexts/UserContext";
 
 export default function Profile() {
-    const { profile } = useProfile();
+    const { profileImage } = useProfileImage();
+    const { profileName } = useProfileName();
     const [name, setName] = useState("");
     const [error, setError] = useState('');
     const [click, setClick] = useState(false);
@@ -14,8 +15,15 @@ export default function Profile() {
     const [file, setFile] = useState(null);
     const [fileDataURL, setFileDataURL] = useState(null);
     const { userData, setUserData } = useContext(UserContext);
+    const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
+        if (userData.user.image && !fileDataURL && !file) {
+            setImageUrl(`${process.env.REACT_APP_API_BASE_URL}/uploads/${userData.user.image}`);
+        }
+        if (userData.user.name && !name) {
+            setName(userData.user.name);
+        }
         let fileReader, isCancel = false;
         if (file) {
             fileReader = new FileReader();
@@ -41,6 +49,7 @@ export default function Profile() {
             alert("Arquivo não é do tipo válido!");
             return 0;
         }
+        setImageUrl(null);
         setFile(fileInput);
     }
 
@@ -48,18 +57,37 @@ export default function Profile() {
         event.preventDefault();
         setClick(true);
         setError('');
+        let userImage, userName
         try {
-            const formData = new FormData();
-            formData.append("image", file);
-            formData.append("name", name);
-            const user = await profile(formData);
+            console.log(file)
+            if (file) {
+                try {
+                    const formData = new FormData();
+                    formData.append("image", file);
+                    userImage = await profileImage(formData);
+                } catch (error) {
+                    setError('Imagem inválida');
+                    console.log(err);
+                }
+            }
+            console.log(userData.user.name !== name)
+            if (userData.user.name !== name) {
+                try {
+                    userName = await profileName({ name });
+                } catch (error) {
+                    setError('Nome inválido');
+                    console.log(err);
+                }
+
+            }
+            if (!userImage) userImage = { image: userData.user.image };
+            if (!userName) userName = { name: userData.user.name };
             setName("");
             setFile(null);
             setFileDataURL(null);
-            setUserData({ user: { ...userData.user, image: user.image, name: user.name }, token: userData.token });
+            setUserData({ user: { ...userData.user, image: userImage.image, name: userName.name }, token: userData.token });
             router.push('/');
         } catch (err) {
-            setError('Imagem ou nome inválido');
             console.log(err);
         }
         setClick(false);
@@ -69,13 +97,13 @@ export default function Profile() {
         <Page>
             <Container>
                 <Titulo>Perfil</Titulo>
-                <Form onSubmit={profileButton} click={click} error={error} filedataurl={fileDataURL}>
+                <Form onSubmit={profileButton} click={click} error={error} filedataurl={fileDataURL || imageUrl}>
                     <label tabIndex="0" htmlFor="inputImage">
-                        <StyleTbCameraPlus filedataurl={fileDataURL} />
-                        <img src={fileDataURL} alt=""></img>
+                        <StyleTbCameraPlus filedataurl={fileDataURL || imageUrl} />
+                        <img src={imageUrl ? imageUrl : fileDataURL} alt=""></img>
                     </label>
-                    <InputNone disabled={click} required type="file" accept="image/*" onChange={changeHandler} id="inputImage" />
-                    <input disabled={click} required type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)} />
+                    <InputNone disabled={click} type="file" accept="image/*" onChange={changeHandler} id="inputImage" />
+                    <input disabled={click} type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)} />
 
                     <span>{error}</span>
 
