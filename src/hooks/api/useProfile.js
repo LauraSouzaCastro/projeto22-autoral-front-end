@@ -3,17 +3,32 @@ import useAsync from '../useAsync';
 import * as proflieApi from '../../services/proflieApi';
 import useToken from '../useToken';
 
-export default function useProfile() {
+export function useProfileImage() {
   const token = useToken();
   const {
-    loading: profileLoading,
-    error: profileError,
-    act: profile,
-  } = useAsync((formData) => proflieApi.profile(formData, token), false);
+    loading: profileImageLoading,
+    error: profileImageError,
+    act: profileImage,
+  } = useAsync((formData) => proflieApi.profileImage(formData, token), false);
 
   return {
-    profileLoading,
-    profileError,
-    profile,
+    profileImageLoading,
+    profileImageError,
+    profileImage,
+  };
+}
+
+export function useProfileName() {
+  const token = useToken();
+  const {
+    loading: profileNameLoading,
+    error: profileNameError,
+    act: profileName,
+  } = useAsync((data) => proflieApi.profileName(data, token), false);
+
+  return {
+    profileNameLoading,
+    profileNameError,
+    profileName,
   };
 }
