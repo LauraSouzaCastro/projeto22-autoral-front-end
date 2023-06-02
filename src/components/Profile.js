@@ -59,7 +59,6 @@ export default function Profile() {
         setError('');
         let userImage, userName
         try {
-            console.log(file)
             if (file) {
                 try {
                     const formData = new FormData();
@@ -70,7 +69,6 @@ export default function Profile() {
                     console.log(err);
                 }
             }
-            console.log(userData.user.name !== name)
             if (userData.user.name !== name) {
                 try {
                     userName = await profileName({ name });
