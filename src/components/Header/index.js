@@ -12,7 +12,7 @@ export default ({ click, setClick }) => {
 
     useEffect(() => {
         if (userData.user.image) {
-            setImageUrl(`${process.env.REACT_APP_API_BASE_URL}/uploads/${userData.user.image}`);
+            setImageUrl(`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${userData.user.image}`);
         }
     }, [userData]);
     return (

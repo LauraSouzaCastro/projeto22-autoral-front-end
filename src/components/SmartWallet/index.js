@@ -23,7 +23,7 @@ export default () => {
                 <p>Através dos gráficos, você poderá identificar padrões de gastos, detectar áreas onde está gastando mais do que deveria e tomar medidas para economizar dinheiro.</p>
                 <p>Então, comece agora mesmo a tomar o controle das suas finanças! Registre-se gratuitamente e aproveite todos os recursos que oferecemos para ajudá-lo a atingir uma vida financeira mais saudável e estável.</p>
             </h3>
-            <img src={`${process.env.REACT_APP_API_BASE_URL}/uploads/grafico-background.jpg`} />
+            <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/grafico-background.jpg`} />
         </Page>
     );
 }

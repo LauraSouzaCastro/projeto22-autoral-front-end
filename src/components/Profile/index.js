@@ -22,7 +22,7 @@ export default () => {
 
     useEffect(() => {
         if (userData.user.image && !fileDataURL && !file) {
-            setImageUrl(`${process.env.REACT_APP_API_BASE_URL}/uploads/${userData.user.image}`);
+            setImageUrl(`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${userData.user.image}`);
         }
         if (userData.user.name && !name) {
             setName(userData.user.name);
