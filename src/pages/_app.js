@@ -22,12 +22,11 @@ export default function App({ Component, pageProps }) {
 
 function ProtectedRouteGuard({ children }) {
   const token = useToken();
-  if (!token && children.type.name !== 'SignIn' && children.type.name !== 'SignUp') {
+  if (!token ) {
     const router = useRouter();
     useEffect(() => {
-        router.push('/sign-in');
+        router.push('/smart-wallet');
     }, []);
-    return <main><div></div></main>;
   }
 
   return <>
