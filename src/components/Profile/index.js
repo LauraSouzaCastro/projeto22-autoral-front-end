@@ -1,10 +1,13 @@
-import { Page, Form, Container, StyleLink, StyleTbCameraPlus, InputNone, Titulo } from "@/styles/styledComponents";
+'use client';
+
+import { Page, Form, Container, StyleLink, Titulo } from "@/styles/styledComponents";
+import { StyleTbCameraPlus, InputNone } from './styles';
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from 'next/navigation';
 import { useProfileImage, useProfileName } from '@/hooks/api/useProfile';
 import { UserContext } from "@/contexts/UserContext";
 
-export default function Profile() {
+export default () => {
     const { profileImage } = useProfileImage();
     const { profileName } = useProfileName();
     const [name, setName] = useState("");

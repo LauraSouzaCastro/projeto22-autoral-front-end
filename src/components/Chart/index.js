@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { Container } from "./styles";
 
-export default function WalletChart() {
+export default () => {
     const options = {
         chart: {
             locales: [{
@@ -188,7 +189,7 @@ export default function WalletChart() {
     ]);
 
     return (
-        <div>
+        <Container>
             <Chart
                 options={options}
                 series={series}
@@ -196,6 +197,6 @@ export default function WalletChart() {
                 height={350}
                 width={500}
             />
-        </div>
+        </Container>
     );
 }
