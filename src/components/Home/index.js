@@ -12,20 +12,20 @@ export default () => {
     const [click, setClick] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
-            if (!("Notification" in window)) {
-                alert("Este browser não suporta notificações de Desktop");
-            } else if (Notification.permission === "granted") {
-                var notification = new Notification("Hi there!");
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function (permission) {
-                    // If the user accepts, let's create a notification
-                    if (permission === "granted") {
-                        var notification = new Notification("Hi there!");
-                    }
-                });
-            }
-        }, 5000);
+        // setTimeout(() => {
+        //     if (!("Notification" in window)) {
+        //         alert("Este browser não suporta notificações de Desktop");
+        //     } else if (Notification.permission === "granted") {
+        //         var notification = new Notification("Hi there!");
+        //     } else if (Notification.permission !== 'denied') {
+        //         Notification.requestPermission(function (permission) {
+        //             // If the user accepts, let's create a notification
+        //             if (permission === "granted") {
+        //                 var notification = new Notification("Hi there!");
+        //             }
+        //         });
+        //     }
+        // }, 5000);
     }, [userData]);
     return (
         <PageIndex>
