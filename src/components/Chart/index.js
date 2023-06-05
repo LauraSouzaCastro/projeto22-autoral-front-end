@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Container } from "./styles";
 
-export default () => {
+export default function ChartComponent () {
     const options = {
         chart: {
             locales: [{

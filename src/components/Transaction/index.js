@@ -2,7 +2,7 @@
 
 import { Form, InputColor } from "./styles";
 
-export default ({ type, clickTransaction }) => {
+export default function Transaction({ type, clickTransaction }) {
     return (
         <Form click={clickTransaction}>
             <input required type="number" min="0.01" step="0.01" placeholder="Valor" />

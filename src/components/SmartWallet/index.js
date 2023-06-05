@@ -3,7 +3,7 @@
 import { Page, HeaderContainer, ButtonSignIn, ButtonSignUp } from "./styles";
 import { useRouter } from 'next/router';
 
-export default () => {
+export default function SmartWallet () {
     const router = useRouter();
 
     return (

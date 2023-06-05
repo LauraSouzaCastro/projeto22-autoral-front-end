@@ -5,7 +5,7 @@ import { useState } from "react";
 import useSignUp from '@/hooks/api/useSignUp';
 import { useRouter } from 'next/navigation';
 
-export default () => {
+export default function SignUp () {
     const { signUp } = useSignUp();
     const [signupData, setSignupData] = useState({ email: "", password: "", passwordConfirm: "" });
     const [error, setError] = useState('');

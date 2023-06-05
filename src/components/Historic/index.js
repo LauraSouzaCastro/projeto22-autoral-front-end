@@ -2,7 +2,7 @@
 
 import { Container } from './styles';
 
-export default ({ clickHistoric }) => {
+export default function Historic ({ clickHistoric }) {
     return (
         <Container click={clickHistoric}>
             <h1>17/05   Entradas    R$ 320,00</h1>

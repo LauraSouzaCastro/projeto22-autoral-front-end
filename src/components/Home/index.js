@@ -7,7 +7,7 @@ import Balance from "../Balance";
 import Chart from "../Chart";
 import Header from "../Header";
 
-export default () => {
+export default function Home () {
     const { userData, setUserData } = useContext(UserContext);
     const [click, setClick] = useState(false);
 

@@ -6,7 +6,7 @@ import Transaction from '../Transaction';
 import { useState } from 'react';
 import Historic from '../Historic';
 
-export default () => {
+export default function Balance () {
     const [clickTransaction, setClickTransaction] = useState(false);
     const [clickHistoric, setClickHistoric] = useState(false);
     const [type, setType] = useState();

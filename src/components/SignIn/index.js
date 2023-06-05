@@ -6,7 +6,7 @@ import { useSessions, useSignIn } from '@/hooks/api/useSignIn';
 import { useRouter } from 'next/navigation';
 import { UserContext } from '@/contexts/UserContext';
 
-export default () => {
+export default function SignIn() {
     const { signIn } = useSignIn();
     const [signInData, setsignInData] = useState({ email: "", password: "" });
     const [error, setError] = useState('');

@@ -5,7 +5,7 @@ import { HeaderContainer, StyleBsFillPersonFill, Menu, Avatar, StyleIoMdExit, Co
 import { UserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
 
-export default ({ click, setClick }) => {
+export default function Header ({ click, setClick }) {
     const { userData, setUserData } = useContext(UserContext);
     const [imageUrl, setImageUrl] = useState(null);
     const router = useRouter();

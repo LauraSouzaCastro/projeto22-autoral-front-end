@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useProfileImage, useProfileName } from '@/hooks/api/useProfile';
 import { UserContext } from "@/contexts/UserContext";
 
-export default () => {
+export default function Profile () {
     const { profileImage } = useProfileImage();
     const { profileName } = useProfileName();
     const [name, setName] = useState("");
