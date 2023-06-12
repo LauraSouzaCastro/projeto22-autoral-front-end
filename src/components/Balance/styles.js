@@ -10,6 +10,7 @@ export const Container = styled.div`
     background-color: #fffffe;
     color: #001f36;
     margin: 12vh;
+    box-shadow: 1px 2px 15px 5px rgba(0,0,0, 0.1);
     h4{
         display: ${props => !props.click ? "flex" : "none"};
         padding: 0% 5%;
