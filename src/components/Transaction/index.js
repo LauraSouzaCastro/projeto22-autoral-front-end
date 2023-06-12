@@ -7,7 +7,7 @@ import { useTransactions } from "@/hooks/api/useTransactions";
 import { useBalance } from "@/hooks/api/useBalance";
 
 export default function Transaction({ type, clickTransaction, setClickTransaction, setBalanceTotal }) {
-    const { categories, categoriesLoading } = useCategories();
+    const { categories, categoriesLoading, listCategories } = useCategories();
     const { transactions } = useTransactions();
     const [dataTransaction, setDataTransaction] = useState({ value: '', categoryName: '', color: '#000000', dateTransaction: '', done: false });
     const [click, setClick] = useState(false);
@@ -26,6 +26,7 @@ export default function Transaction({ type, clickTransaction, setClickTransactio
             setDataTransaction({ value: '', categoryName: '', color: '#000000', dateTransaction: '', done: false });
             const balance = await listBalance();
             setBalanceTotal(balance.value.replace(".", ","))
+            await listCategories()
             setClickTransaction(false);
             setClick(false);
         } catch (err) {
@@ -33,6 +34,7 @@ export default function Transaction({ type, clickTransaction, setClickTransactio
         }
         setClick(false);
     }
+    console.log(categories)
     return (
         <Form onSubmit={transactionButton} click={clickTransaction}>
             <input required disabled={click} type="number" min="0.01" step="0.01" placeholder="Valor" value={dataTransaction.value} onChange={e => setDataTransaction({ ...dataTransaction, value: e.target.value })} />
