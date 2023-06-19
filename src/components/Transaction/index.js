@@ -5,13 +5,15 @@ import { InputColor, Form } from "./styles";
 import { useCategories } from "@/hooks/api/useCategories";
 import { useTransactions } from "@/hooks/api/useTransactions";
 import { useBalance } from "@/hooks/api/useBalance";
+import { useHistoric } from "@/hooks/api/useHistoric";
 
-export default function Transaction({ type, clickTransaction, setClickTransaction, setBalanceTotal }) {
+export default function Transaction({ type, clickTransaction, setClickTransaction, setBalanceTotal, setHistoricArray }) {
     const { categories, categoriesLoading, listCategories } = useCategories();
     const { transactions } = useTransactions();
     const [dataTransaction, setDataTransaction] = useState({ value: '', categoryName: '', color: '#000000', dateTransaction: '', done: false });
     const [click, setClick] = useState(false);
     const { listBalance } = useBalance();
+    const { listHistoric } = useHistoric();
 
     async function transactionButton(event) {
         event.preventDefault();
@@ -25,8 +27,10 @@ export default function Transaction({ type, clickTransaction, setClickTransactio
             await transactions(data);
             setDataTransaction({ value: '', categoryName: '', color: '#000000', dateTransaction: '', done: false });
             const balance = await listBalance();
-            setBalanceTotal(balance.value.replace(".", ","))
-            await listCategories()
+            setBalanceTotal(balance.value.replace(".", ","));
+            await listCategories();
+            const historic = await listHistoric();
+            setHistoricArray(historic);
             setClickTransaction(false);
             setClick(false);
         } catch (err) {
@@ -34,7 +38,7 @@ export default function Transaction({ type, clickTransaction, setClickTransactio
         }
         setClick(false);
     }
-    console.log(categories)
+    
     return (
         <Form onSubmit={transactionButton} click={clickTransaction}>
             <input required disabled={click} type="number" min="0.01" step="0.01" placeholder="Valor" value={dataTransaction.value} onChange={e => setDataTransaction({ ...dataTransaction, value: e.target.value })} />
