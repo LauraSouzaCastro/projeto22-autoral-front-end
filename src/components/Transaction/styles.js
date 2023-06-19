@@ -38,6 +38,15 @@ export const Form = styled.form`
             margin-right: 1vh;
         }
     }
+    @media (max-width: 515px) {
+        margin: 1vh 1.5vh;
+        input{
+            height: 2.5vh;
+        }
+        button{
+            height: 3.5vh;
+        }
+    }
 `;
 
 export const InputColor = styled.input`

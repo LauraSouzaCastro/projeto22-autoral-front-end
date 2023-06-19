@@ -21,17 +21,17 @@ export function useTransactions() {
 export function useHistoric() {
   const token = useToken();
   const {
-      data: historic,
-      loading: historicLoading,
-      error: historicError,
-      act: listHistoric,
+    data: historic,
+    loading: historicLoading,
+    error: historicError,
+    act: listHistoric,
   } = useAsync(() => transactionsApi.getHistoric(token));
 
   return {
-      historic,
-      historicLoading,
-      historicError,
-      listHistoric,
+    historic,
+    historicLoading,
+    historicError,
+    listHistoric,
   };
 };
 
@@ -39,14 +39,31 @@ export function useDeleteTransaction() {
   const token = useToken();
 
   const {
-      loading: deleteTransactionLoading,
-      error: deleteTransactionError,
-      act: deleteTransaction
+    loading: deleteTransactionLoading,
+    error: deleteTransactionError,
+    act: deleteTransaction
   } = useAsync((transactionId) => transactionsApi.deleteTransaction(token, transactionId), false);
 
   return {
-      deleteTransactionLoading,
-      deleteTransactionError,
-      deleteTransaction
+    deleteTransactionLoading,
+    deleteTransactionError,
+    deleteTransaction
   };
 }
+
+export function useDataGrafic() {
+  const token = useToken();
+  const {
+    data: dataGrafic,
+    loading: dataGraficLoading,
+    error: dataGraficError,
+    act: listDataGrafic,
+  } = useAsync(() => transactionsApi.getDataGrafic(token));
+
+  return {
+    dataGrafic,
+    dataGraficLoading,
+    dataGraficError,
+    listDataGrafic,
+  };
+};

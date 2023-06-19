@@ -27,6 +27,9 @@ export const StyleBsFillPersonFill = styled(BsFillPersonFill)`
     color: #001f36;
     font-size: 4vh;
     display: ${props => !props.imageurl ? "flex" : "none"};
+    @media (max-width: 515px) {
+        font-size: 2vh;
+    }
 `;
 
 export const Avatar = styled.div`
@@ -40,6 +43,11 @@ export const Avatar = styled.div`
     background-image: url(${props => props.imageurl ? props.imageurl : ""});
     background-size: 6vh;
     background-repeat: no-repeat;
+    @media (max-width: 515px) {
+        width: 4vh;
+        height: 4vh;
+        background-size: 4vh;
+    }
 `;
 
 export const Menu = styled.div`
@@ -82,5 +90,10 @@ export const ConatinerNameAvatar = styled.div`
         line-height: 50px;
         color: #edeeff;
         margin-right: 2vh;
+        @media (max-width: 515px) {
+            font-size: 13x;
+            line-height: 40px;
+            margin-right: 1vh;
+        }
     }
 `;

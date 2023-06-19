@@ -1,17 +1,21 @@
 'use client';
 
 import { useContext, useEffect, useState } from "react";
-import { PageIndex, ContainerBody } from './styles';
+import { PageIndex, ContainerBody, ContainerChart } from './styles';
 import { UserContext } from "@/contexts/UserContext";
 import Balance from "../Balance";
 import Chart from "../Chart";
 import Header from "../Header";
+import { useDataGrafic } from "@/hooks/api/useTransactions";
 
-export default function Home () {
+export default function Home() {
     const { userData, setUserData } = useContext(UserContext);
     const [click, setClick] = useState(false);
+    const { dataGrafic, dataGraficLoading } = useDataGrafic()
+    const [series, setSeries] = useState([]);
 
     useEffect(() => {
+        if (!dataGraficLoading) setSeries(dataGrafic);
         // setTimeout(() => {
         //     if (!("Notification" in window)) {
         //         alert("Este browser não suporta notificações de Desktop");
@@ -26,13 +30,15 @@ export default function Home () {
         //         });
         //     }
         // }, 5000);
-    }, [userData]);
+    }, [userData, dataGraficLoading]);
     return (
         <PageIndex>
-            <Header click={click} setClick={setClick}/>
-            <ContainerBody  onClick={() => setClick(false)}>
-                <Balance />
-                <Chart />
+            <Header click={click} setClick={setClick} />
+            <ContainerBody onClick={() => setClick(false)}>
+                <Balance setSeries={setSeries} />
+                <ContainerChart>
+                    <Chart series={series} />
+                </ContainerChart>
             </ContainerBody>
         </PageIndex>
     )

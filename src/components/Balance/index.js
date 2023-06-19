@@ -8,16 +8,17 @@ import Historic from '../Historic';
 import { useBalance } from '@/hooks/api/useBalance';
 import { useHistoric } from '@/hooks/api/useTransactions';
 
-export default function Balance() {
+export default function Balance({ setSeries }) {
     const [clickTransaction, setClickTransaction] = useState(false);
     const [clickHistoric, setClickHistoric] = useState(false);
     const [type, setType] = useState();
     const { balance, balanceLoading } = useBalance();
-    const [ balanceTotal, setBalanceTotal ] = useState(!balanceLoading ? balance.value.replace(".", ",") : "0,00")
+    const [ balanceTotal, setBalanceTotal ] = useState(!balanceLoading ? Number(balance.value).toFixed(2).replace(".", ",") : "0,00")
     const { historic, historicLoading } = useHistoric();
     const [ historicArray, setHistoricArray ] = useState(!historicLoading && historic);
+    
     useEffect(() => {
-        if(!balanceLoading) setBalanceTotal(balance.value.replace(".", ","));
+        if(!balanceLoading) setBalanceTotal(Number(balance.value).toFixed(2).replace(".", ","));
         if(!historicLoading) setHistoricArray(historic);
     }, [ balanceLoading, historicLoading ]);
 
@@ -30,8 +31,8 @@ export default function Balance() {
             <h4>
                 R$ {balanceTotal}
             </h4>
-            <Historic clickHistoric={clickHistoric} historicArray={historicArray} setHistoricArray={setHistoricArray} setBalanceTotal={setBalanceTotal}/>
-            <Transaction clickTransaction={clickTransaction} type={type} setClickTransaction={setClickTransaction} setBalanceTotal={setBalanceTotal} setHistoricArray={setHistoricArray}/>
+            <Historic clickHistoric={clickHistoric} historicArray={historicArray} setHistoricArray={setHistoricArray} setBalanceTotal={setBalanceTotal} setSeries={setSeries}/>
+            <Transaction clickTransaction={clickTransaction} type={type} setClickTransaction={setClickTransaction} setBalanceTotal={setBalanceTotal} setHistoricArray={setHistoricArray} setSeries={setSeries}/>
             <Options>
                 <ButtonStart onClick={() => { setClickHistoric(false); setClickTransaction(true); setType("INPUT") }}>Entrada  <span><AiOutlinePlusCircle /></span></ButtonStart>
                 <ButtonEnd onClick={() => { setClickHistoric(false); setClickTransaction(true); setType("OUTPUT") }}>Saída <span><AiOutlineMinusCircle /></span></ButtonEnd>

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import dynamic from "next/dynamic";
 
-export const Container = styled.div`
-   margin: auto;
-   z-index: -1;
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+
+export const ChartStyled = styled(Chart)`
 `;
