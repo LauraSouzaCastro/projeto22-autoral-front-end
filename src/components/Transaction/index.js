@@ -5,7 +5,7 @@ import { InputColor, Form } from "./styles";
 import { useCategories } from "@/hooks/api/useCategories";
 import { useTransactions } from "@/hooks/api/useTransactions";
 import { useBalance } from "@/hooks/api/useBalance";
-import { useHistoric } from "@/hooks/api/useHistoric";
+import { useHistoric } from "@/hooks/api/useTransactions";
 
 export default function Transaction({ type, clickTransaction, setClickTransaction, setBalanceTotal, setHistoricArray }) {
     const { categories, categoriesLoading, listCategories } = useCategories();

@@ -9,3 +9,21 @@ export async function postTransactions(body, token) {
 
     return response.data;
 }
+
+export async function getHistoric(token) {
+    const response = await api.get('/transactions', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+}
+
+export async function deleteTransaction(token, transactionId) {
+    const response = await api.delete(`/transactions/${transactionId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+}

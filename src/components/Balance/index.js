@@ -6,7 +6,7 @@ import Transaction from '../Transaction';
 import { useEffect, useState } from 'react';
 import Historic from '../Historic';
 import { useBalance } from '@/hooks/api/useBalance';
-import { useHistoric } from '@/hooks/api/useHistoric';
+import { useHistoric } from '@/hooks/api/useTransactions';
 
 export default function Balance() {
     const [clickTransaction, setClickTransaction] = useState(false);

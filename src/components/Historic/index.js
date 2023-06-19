@@ -1,7 +1,7 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useDeleteTransaction, useHistoric } from '@/hooks/api/useHistoric';
+import { useDeleteTransaction, useHistoric } from '@/hooks/api/useTransactions';
 import { Container } from './styles';
 import { MdDelete } from 'react-icons/md';
 import { useBalance } from '@/hooks/api/useBalance';
