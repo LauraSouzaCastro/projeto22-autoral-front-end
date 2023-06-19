@@ -27,3 +27,12 @@ export async function deleteTransaction(token, transactionId) {
     });
     return response.data;
 }
+
+export async function getDataGrafic(token) {
+    const response = await api.get('/transactions/data', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+}

@@ -1,15 +1,17 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useDeleteTransaction, useHistoric } from '@/hooks/api/useTransactions';
+import { useDataGrafic, useDeleteTransaction, useHistoric } from '@/hooks/api/useTransactions';
 import { Container } from './styles';
 import { MdDelete } from 'react-icons/md';
 import { useBalance } from '@/hooks/api/useBalance';
 
-export default function Historic({ clickHistoric, historicArray, setHistoricArray, setBalanceTotal }) {
+export default function Historic({ clickHistoric, historicArray, setHistoricArray, setBalanceTotal, setSeries }) {
     const { listHistoric } = useHistoric();
     const { deleteTransaction, deleteTransactionLoading } = useDeleteTransaction();
     const { listBalance } = useBalance();
+    const { listDataGrafic } = useDataGrafic();
+
     async function deleteTransactionButton(transactionId){
         try {
             await deleteTransaction(transactionId);
@@ -17,6 +19,8 @@ export default function Historic({ clickHistoric, historicArray, setHistoricArra
             setHistoricArray(historic);
             const balance = await listBalance();
             setBalanceTotal(balance.value.replace(".", ","));
+            const dataGrafic = await listDataGrafic();
+            setSeries(dataGrafic);
           } catch (err) {
             console.log(err);
           }
