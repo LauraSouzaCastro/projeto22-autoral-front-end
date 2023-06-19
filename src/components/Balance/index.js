@@ -6,6 +6,7 @@ import Transaction from '../Transaction';
 import { useEffect, useState } from 'react';
 import Historic from '../Historic';
 import { useBalance } from '@/hooks/api/useBalance';
+import { useHistoric } from '@/hooks/api/useHistoric';
 
 export default function Balance() {
     const [clickTransaction, setClickTransaction] = useState(false);
@@ -13,10 +14,12 @@ export default function Balance() {
     const [type, setType] = useState();
     const { balance, balanceLoading } = useBalance();
     const [ balanceTotal, setBalanceTotal ] = useState(!balanceLoading ? balance.value.replace(".", ",") : "0,00")
-
+    const { historic, historicLoading } = useHistoric();
+    const [ historicArray, setHistoricArray ] = useState(!historicLoading && historic);
     useEffect(() => {
         if(!balanceLoading) setBalanceTotal(balance.value.replace(".", ","));
-    }, [ balanceLoading ]);
+        if(!historicLoading) setHistoricArray(historic);
+    }, [ balanceLoading, historicLoading ]);
 
     return (
         <Container click={clickTransaction || clickHistoric}>
@@ -27,8 +30,8 @@ export default function Balance() {
             <h4>
                 R$ {balanceTotal}
             </h4>
-            <Historic clickHistoric={clickHistoric} />
-            <Transaction clickTransaction={clickTransaction} type={type} setClickTransaction={setClickTransaction} setBalanceTotal={setBalanceTotal}/>
+            <Historic clickHistoric={clickHistoric} historicArray={historicArray} setHistoricArray={setHistoricArray} setBalanceTotal={setBalanceTotal}/>
+            <Transaction clickTransaction={clickTransaction} type={type} setClickTransaction={setClickTransaction} setBalanceTotal={setBalanceTotal} setHistoricArray={setHistoricArray}/>
             <Options>
                 <ButtonStart onClick={() => { setClickHistoric(false); setClickTransaction(true); setType("INPUT") }}>Entrada  <span><AiOutlinePlusCircle /></span></ButtonStart>
                 <ButtonEnd onClick={() => { setClickHistoric(false); setClickTransaction(true); setType("OUTPUT") }}>Saída <span><AiOutlineMinusCircle /></span></ButtonEnd>
