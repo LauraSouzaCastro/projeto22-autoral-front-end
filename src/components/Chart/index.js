@@ -5,9 +5,11 @@ import React from "react";
 import { ChartStyled } from "./styles";
 
 export default function Chart({ series }) {
-    var meio = Math.floor(series.find(s => s.name == 'Saldo').data.length / 2);
-    var elementoDoMeio = series.find(s => s.name == 'Saldo').data[meio];
-    
+    let elementoDoMeio = { x: new Date() };
+    if (series.length && series.find(s => s.name == 'Saldo').data.length) {
+        const meio = Math.floor(series.find(s => s.name == 'Saldo').data.length / 2);
+        elementoDoMeio = series.find(s => s.name == 'Saldo').data[meio];
+    }
     const options = {
         chart: {
             locales: [{
