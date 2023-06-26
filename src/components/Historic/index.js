@@ -18,7 +18,7 @@ export default function Historic({ clickHistoric, historicArray, setHistoricArra
             const historic = await listHistoric();
             setHistoricArray(historic);
             const balance = await listBalance();
-            setBalanceTotal(balance.value.replace(".", ","));
+            setBalanceTotal(Number(balance.value).toFixed(2).replace(".", ","));
             const dataGrafic = await listDataGrafic();
             setSeries(dataGrafic);
           } catch (err) {

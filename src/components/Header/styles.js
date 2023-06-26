@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BsFillPersonFill } from 'react-icons/bs';
+import { BsFillPersonFill, BsBellFill, BsBell } from 'react-icons/bs';
 import { IoMdExit } from 'react-icons/io';
 
 export const HeaderContainer = styled.div`
@@ -60,7 +60,7 @@ export const Menu = styled.div`
     background-color: #edeeff;
     border-radius: 5%;
     box-shadow: 1px 2px 15px 5px rgba(0,0,0, 0.5);
-    display: ${props => props.click ? "flex" : "none"};
+    display: ${props => props.clickmenu ? "flex" : "none"};
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
@@ -96,4 +96,20 @@ export const ConatinerNameAvatar = styled.div`
             margin-right: 1vh;
         }
     }
+`;
+
+export const StyleBsBellFill = styled(BsBellFill)`
+    margin-right: 2vh;
+    @media (max-width: 515px) {
+        margin-right: 1vh;
+    }
+   color: #edeeff;
+`;
+
+export const StyleBsBell = styled(BsBell)`
+    margin-right: 2vh;
+    @media (max-width: 515px) {
+        margin-right: 1vh;
+    }
+   color: #edeeff;
 `;

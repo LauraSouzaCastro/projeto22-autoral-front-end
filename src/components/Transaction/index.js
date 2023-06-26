@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { InputColor, Form } from "./styles";
 import { useCategories } from "@/hooks/api/useCategories";
-import { useDataGrafic, useTransactions } from "@/hooks/api/useTransactions";
+import { useDataGrafic, useNotifications, useTransactions } from "@/hooks/api/useTransactions";
 import { useBalance } from "@/hooks/api/useBalance";
 import { useHistoric } from "@/hooks/api/useTransactions";
 
-export default function Transaction({ type, clickTransaction, setClickTransaction, setBalanceTotal, setHistoricArray, setSeries }) {
+export default function Transaction({ type, clickTransaction, setClickTransaction, setBalanceTotal, setHistoricArray, setSeries, setNotificationsArray }) {
     const { categories, categoriesLoading, listCategories } = useCategories();
     const { transactions } = useTransactions();
     const [dataTransaction, setDataTransaction] = useState({ value: '', categoryName: '', color: '#000000', dateTransaction: '', done: false });
@@ -15,6 +15,7 @@ export default function Transaction({ type, clickTransaction, setClickTransactio
     const { listBalance } = useBalance();
     const { listHistoric } = useHistoric();
     const { listDataGrafic } = useDataGrafic();
+    const { listNotifications } = useNotifications();
 
     async function transactionButton(event) {
         event.preventDefault();
@@ -28,12 +29,14 @@ export default function Transaction({ type, clickTransaction, setClickTransactio
             await transactions(data);
             setDataTransaction({ value: '', categoryName: '', color: '#000000', dateTransaction: '', done: false });
             const balance = await listBalance();
-            setBalanceTotal(balance.value.replace(".", ","));
+            setBalanceTotal(Number(balance.value).toFixed(2).replace(".", ","));
             await listCategories();
             const historic = await listHistoric();
             setHistoricArray(historic);
             const dataGrafic = await listDataGrafic();
             setSeries(dataGrafic);
+            const notifications = await listNotifications();
+            setNotificationsArray(notifications);
             setClickTransaction(false);
             setClick(false);
         } catch (err) {

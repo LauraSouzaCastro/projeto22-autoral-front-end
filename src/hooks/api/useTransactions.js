@@ -67,3 +67,36 @@ export function useDataGrafic() {
     listDataGrafic,
   };
 };
+
+export function useNotifications() {
+  const token = useToken();
+  const {
+    data: notifications,
+    loading: notificationsLoading,
+    error: notificationsError,
+    act: listNotifications,
+  } = useAsync(() => transactionsApi.getNotifications(token));
+
+  return {
+    notifications,
+    notificationsLoading,
+    notificationsError,
+    listNotifications,
+  };
+};
+
+export function useUpdateTransaction() {
+  const token = useToken();
+
+  const {
+    loading: updateTransactionLoading,
+    error: updateTransactionError,
+    act: updateTransaction
+  } = useAsync((transactionId) => transactionsApi.updateTransaction(token, transactionId), false);
+
+  return {
+    updateTransactionLoading,
+    updateTransactionError,
+    updateTransaction
+  };
+}

@@ -36,3 +36,21 @@ export async function getDataGrafic(token) {
     });
     return response.data;
 }
+
+export async function getNotifications(token) {
+    const response = await api.get('/transactions/notifications', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+}
+
+export async function updateTransaction(token, transactionId) {
+    const response = await api.put(`/transactions/${transactionId}`, {}, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+}

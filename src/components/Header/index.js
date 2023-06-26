@@ -1,11 +1,12 @@
 'use client';
 
 import { useContext, useEffect, useState } from "react";
-import { HeaderContainer, StyleBsFillPersonFill, Menu, Avatar, StyleIoMdExit, ConatinerNameAvatar } from './styles';
+import { HeaderContainer, StyleBsBellFill, StyleBsBell, StyleBsFillPersonFill, Menu, Avatar, StyleIoMdExit, ConatinerNameAvatar } from './styles';
 import { UserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
+import Notification from "../Notification";
 
-export default function Header ({ click, setClick }) {
+export default function Header({ clickMenu, setClickMenu, clickNotification, setClickNotification, notificationsArray, setNotificationsArray, setBalanceTotal, setHistoricArray, setSeries }) {
     const { userData, setUserData } = useContext(UserContext);
     const [imageUrl, setImageUrl] = useState(null);
     const router = useRouter();
@@ -22,13 +23,15 @@ export default function Header ({ click, setClick }) {
                 <h2>
                     {userData.user.name ? `Olá, ${userData.user.name}!` : "Olá"}
                 </h2>
-                <Avatar onClick={() => setClick(!click)} imageurl={imageUrl}>
+                {notificationsArray.length < 1 ? <StyleBsBell onClick={() => {setClickNotification(!clickNotification); setClickMenu(false)}}/> : <StyleBsBellFill onClick={() => {setClickNotification(!clickNotification); setClickMenu(false)}}/>}
+                <Avatar onClick={() => {setClickMenu(!clickMenu); setClickNotification(false)}} imageurl={imageUrl}>
                     <StyleBsFillPersonFill imageurl={imageUrl} />
                 </Avatar>
             </ConatinerNameAvatar>
-            <Menu click={click}>
+            <Notification clickNotification={clickNotification} notificationsArray={notificationsArray} setNotificationsArray={setNotificationsArray} setSeries={setSeries} setHistoricArray={setHistoricArray} setBalanceTotal={setBalanceTotal}/>
+            <Menu clickmenu={clickMenu}>
                 <p onClick={() => router.push('/profile')}>Perfil</p>
-                <p onClick={() => { setUserData({user:{}}); router.push('/smart-wallet') }}>Sair <StyleIoMdExit /></p>
+                <p onClick={() => { setUserData({ user: {} }); router.push('/smart-wallet') }}>Sair <StyleIoMdExit /></p>
             </Menu>
         </HeaderContainer>
     )

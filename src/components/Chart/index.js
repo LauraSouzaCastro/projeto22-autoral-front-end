@@ -5,7 +5,9 @@ import React from "react";
 import { ChartStyled } from "./styles";
 
 export default function Chart({ series }) {
-
+    var meio = Math.floor(series.find(s => s.name == 'Saldo').data.length / 2);
+    var elementoDoMeio = series.find(s => s.name == 'Saldo').data[meio];
+    
     const options = {
         chart: {
             locales: [{
@@ -64,12 +66,15 @@ export default function Chart({ series }) {
         },
         xaxis: {
             type: 'datetime',
+            range: 86400000 * 30,
+            min: new Date(elementoDoMeio.x).getTime() - (15 * 24 * 60 * 60 * 1000),
+            max: new Date(elementoDoMeio.x).getTime() + (15 * 24 * 60 * 60 * 1000)
         },
         yaxis: [{
             title: {
                 text: 'Reais (R$)',
             }
-        }]
+        }],
     };
 
     return (
